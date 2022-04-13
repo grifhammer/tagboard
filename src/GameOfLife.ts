@@ -1,17 +1,16 @@
 export class GameOfLife {
 	gameState: { [key: string]: number };
-	turn: 0;
+	turn: number;
 	constructor(input: number[][]) {
 		this.gameState = {};
 		this.parseInput(input);
-		this.turn = 0;
+		this.turn = 1;
 	}
-	parseInput(input: number[][]) {
+	private parseInput(input: number[][]) {
 		input.forEach((line, yIndex) => {
 			line.forEach((cell, xIndex) => {
 				const coordinates = `${xIndex}, ${yIndex}`;
 
-				console.log(cell, coordinates);
 				if (cell !== 0) {
 					this.gameState[coordinates] = cell;
 				}
@@ -19,14 +18,19 @@ export class GameOfLife {
 		});
 	}
 
-	iterate() {
-		console.log(this.gameState);
+	private iterate() {
+		console.log(this.gameState, this.turn);
 		// calculate the next turn here
+		this.turn++;
 	}
 
 	runGame(turn: number) {
-		for (let currentTurn = this.turn; currentTurn < turn; currentTurn++) {
+		for (let currentTurn = this.turn; currentTurn <= turn; currentTurn++) {
 			this.iterate();
 		}
+	}
+
+	printState() {
+		console.log(this.gameState);
 	}
 }

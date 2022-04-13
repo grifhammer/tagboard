@@ -1,4 +1,4 @@
 import { input } from "./inputs";
 import { GameOfLife } from "./GameOfLife";
 const game = new GameOfLife(input);
-game.iterate();
+game.runGame(20);
