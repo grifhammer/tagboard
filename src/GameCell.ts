@@ -4,25 +4,22 @@ export abstract class GameCell {
 		this.value = value;
 	}
 
-	abstract age(neighbors: GameCell[]): GameCell;
+	abstract age(neighbors: number[]): GameCell;
 }
 
 export class EmptyCell extends GameCell {
 	constructor() {
 		super(0);
 	}
-	age(neighbors: GameCell[]): GameCell {
+	age(neighbors: number[]): GameCell {
 		const adultNeighbors = neighbors.reduce((prev: number, current) => {
-			return prev + current.value === 2 ? 1 : 0;
+			return prev + (current === 2 ? 1 : 0);
 		}, 0);
-		if (neighbors.length > 0) {
-			console.log(neighbors, adultNeighbors);
-		}
+		//check if we have exactly 2 adult neighbors -> newborn
 		if (adultNeighbors === 2) {
-			console.log("Newborn Created");
+			console.log("Child born", adultNeighbors, neighbors);
 			return new NewbornCell();
 		}
-		//check if we have exactly 2 adult neighbors -> newborn
 		return this;
 	}
 }
@@ -30,10 +27,10 @@ export class NewbornCell extends GameCell {
 	constructor() {
 		super(1);
 	}
-	age(neighbors: GameCell[]) {
+	age(neighbors: number[]) {
 		//check if we have >=5 neighbors -> empty
 		// check if we have less than 1 neighbor -> empty
-		if (neighbors.length >= 5 || neighbors.length < 1) {
+		if (neighbors.length >= 5 || neighbors.length <= 1) {
 			console.log("Newborn death", neighbors.length);
 			return new EmptyCell();
 		}
@@ -45,7 +42,7 @@ export class AdultCell extends GameCell {
 	constructor() {
 		super(2);
 	}
-	age(neighbors: GameCell[]) {
+	age(neighbors: number[]) {
 		// check if >= 3 neighbors -> empty
 		// check if no neighbors -> empty	const neighbors = this.getNeighbors();
 		if (neighbors.length >= 3 || neighbors.length === 0) {
@@ -60,7 +57,7 @@ export class SeniorCell extends GameCell {
 	constructor() {
 		super(3);
 	}
-	age() {
+	age(_neighbors: number[]) {
 		return new EmptyCell();
 	}
 }
