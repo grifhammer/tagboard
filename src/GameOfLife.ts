@@ -75,13 +75,6 @@ export class GameOfLife {
 		});
 		this.gameState.forEach((line, yCoord) => {
 			line.forEach((cell, xCoord) => {
-				if (xCoord === 2 && yCoord === 5) {
-					console.log(
-						"at 2,5",
-						this.turn,
-						currentNeighbors[xCoord][yCoord]
-					);
-				}
 				this.gameState[xCoord][yCoord] = cell.age(
 					currentNeighbors[xCoord][yCoord]
 				);

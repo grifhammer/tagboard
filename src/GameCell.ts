@@ -15,11 +15,7 @@ export class EmptyCell extends GameCell {
 		const adultNeighbors = neighbors.reduce((prev: number, current) => {
 			return prev + current.value === 2 ? 1 : 0;
 		}, 0);
-		if (neighbors.length > 0) {
-			console.log(neighbors, adultNeighbors);
-		}
 		if (adultNeighbors === 2) {
-			console.log("Newborn Created");
 			return new NewbornCell();
 		}
 		//check if we have exactly 2 adult neighbors -> newborn
@@ -34,7 +30,6 @@ export class NewbornCell extends GameCell {
 		//check if we have >=5 neighbors -> empty
 		// check if we have less than 1 neighbor -> empty
 		if (neighbors.length >= 5 || neighbors.length < 1) {
-			console.log("Newborn death", neighbors.length);
 			return new EmptyCell();
 		}
 		// otherwise -> adult
@@ -49,7 +44,6 @@ export class AdultCell extends GameCell {
 		// check if >= 3 neighbors -> empty
 		// check if no neighbors -> empty	const neighbors = this.getNeighbors();
 		if (neighbors.length >= 3 || neighbors.length === 0) {
-			console.log("Adult death", neighbors.length);
 			return new EmptyCell();
 		}
 
